@@ -20,9 +20,14 @@ module.exports = {
         blockNumber: 14787640,
       },
     },
-    rinkeby: {
-      url:  `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
-      chainId: 4,
+    goerli: {
+      url:  `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
+      chainId: 5,
+      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
+    },
+    ropsten: {
+      url:  `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
+      chainId: 3,
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
     mainnet: {
@@ -34,7 +39,8 @@ module.exports = {
   etherscan: {
     apiKey: {
       mainnet: process.env.ETHERSCAN_API_KEY,
-      rinkeby: process.env.ETHERSCAN_API_KEY,
+      goerli: process.env.ETHERSCAN_API_KEY,
+      ropsten: process.env.ETHERSCAN_API_KEY,
     },
   },
 };
