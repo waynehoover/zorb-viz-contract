@@ -21,6 +21,12 @@ describe("ZorbViz-mint", function () {
     expect(await zorbViz.ownerOf(1)).to.equal(signer1.address);
   });
 
+  it("should error when minting the same token", async () => {
+    await zorbViz.connect(signer1).mint(1,"ipfs://CID", { value: ethers.utils.parseEther("0.04") })
+    await expect(zorbViz.connect(signer2).mint(1,"ipfs://CID", { value: ethers.utils.parseEther("0.04") }))
+                .to.be.revertedWith("ERC721: token already minted");
+  });
+
   it("should not mint when token is out of range", async () => {
     await expect(zorbViz.connect(signer2).mint(100000,"ipfs://CID"))
                 .to.be.revertedWith("Token ID is out of range");
