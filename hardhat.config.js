@@ -21,17 +21,22 @@ module.exports = {
       },
     },
     goerli: {
-      url:  `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
+      url: `https://eth-goerli.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
       chainId: 5,
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
     ropsten: {
-      url:  `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
+      url: `https://eth-ropsten.alchemyapi.io/v2/${process.env.ALCHEMY_R_API_KEY}`,
       chainId: 3,
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
+    rinkeby: {
+      url: `https://eth-rinkeby.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+      chainId: 4,
+      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
+    },
     mainnet: {
-      url:  `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
+      url: `https://eth-mainnet.alchemyapi.io/v2/${process.env.ALCHEMY_API_KEY}`,
       chainId: 1,
       accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
     },
@@ -41,6 +46,7 @@ module.exports = {
       mainnet: process.env.ETHERSCAN_API_KEY,
       goerli: process.env.ETHERSCAN_API_KEY,
       ropsten: process.env.ETHERSCAN_API_KEY,
+      rinkeby: process.env.ETHERSCAN_API_KEY,
     },
   },
 };
