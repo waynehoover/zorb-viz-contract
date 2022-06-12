@@ -9,9 +9,8 @@ describe("ZorbViz-mint", function () {
 
     const ZorbViz = await ethers.getContractFactory("ZorbViz");
     zorbViz = await ZorbViz.deploy(
-      "Zorb Viz",
-      "ZORBViZ",
       "0xCa21d4228cDCc68D4e23807E5e370C07577Dd152", // mainnet zorb contract
+      "0x787Bc4D2DA1CFCD5db700547B491E9Fd332e77C8"
     );
   });
 
