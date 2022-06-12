@@ -31,4 +31,10 @@ describe("ZorbViz-mint", function () {
     await expect(zorbViz.connect(signer2).mint(100000))
                 .to.be.revertedWith("Token ID is out of range");
   });
+
+  it("should set baseURI", async () => {
+    await zorbViz.connect(contractOwner).setBaseURI("https://abc.xyz")
+
+    expect(await zorbViz.baseURI()).to.equal("https://abc.xyz");
+  });
 });
