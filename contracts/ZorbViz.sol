@@ -2,7 +2,7 @@
 pragma solidity ^0.8.10;
 
 import "@openzeppelin/contracts/interfaces/IERC2981.sol";
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
@@ -10,32 +10,49 @@ interface INFT {
     function balanceOf(address owner) external view returns (uint256 balance);
 }
 
-contract ZorbViz is ERC721URIStorage, Ownable, IERC2981 {
-    // zorb NFT contract address
-    address public zorbNFT; // 0xCa21d4228cDCc68D4e23807E5e370C07577Dd152
+contract ZorbViz is ERC721, Ownable, IERC2981 {
+    using Strings for uint256;
+
+    // zorb NFT contract address, mainnet: 0xCa21d4228cDCc68D4e23807E5e370C07577Dd152
+    address public zorbNFT;
 
     address payable public royaltyRecipient;
 
     uint256 public constant PUBLIC_SALE_PRICE = 0.04 ether;
 
-    constructor(address _zorbNFT, address payable _royaltyRecipient) ERC721("Zorb Viz", "ZORBVIZ")
+    string public baseURI;
+
+    constructor(address _zorbNFT, address payable _royaltyRecipient, string memory _baseUri) ERC721("Zorb Viz", "ZORBVIZ")
     {
         zorbNFT = _zorbNFT;
         royaltyRecipient = _royaltyRecipient;
+        baseURI = _baseUri;
     }
 
-    function mintToSender(uint256 tokenId, string memory _uri) internal {
-        _mint(msg.sender, tokenId);
-        _setTokenURI(tokenId, _uri);
-    }
-
-    function mint(uint256 tokenId, string memory _uri) external payable tokenIdInRange(tokenId) {
+    function mint(uint256 tokenId) external payable tokenIdInRange(tokenId) {
         if (INFT(zorbNFT).balanceOf(msg.sender) > 0) {
-            mintToSender(tokenId, _uri);
+            _mint(msg.sender, tokenId);
         } else {
-            require(PUBLIC_SALE_PRICE == msg.value, "Incorrect ETH value sent");
-            mintToSender(tokenId, _uri);
+            require(PUBLIC_SALE_PRICE == msg.value, "Incorrect ETH value sent, must be .04 ether");
+            _mint(msg.sender, tokenId);
         }
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        require(_exists(tokenId), "Nonexistent token");
+
+        return
+            string(abi.encodePacked(baseURI, "/", tokenId.toString(), ".json"));
+    }
+
+    function setBaseURI(string memory _baseURI) external onlyOwner {
+        baseURI = _baseURI;
     }
 
     // January 1, 2021: 1609480800
