@@ -7,7 +7,7 @@ Contracts for the Zorbs Viz NFT. Frontend is here: Goes along with https://githu
 
 ### Contract addresses:
 
-- ETH contract: tbd
+- ETH contract: [0x2079c2765462Af6D78A9cCbDDb6Ff3C6D4Ba2e24](https://etherscan.io/address/0x2079c2765462Af6D78A9cCbDDb6Ff3C6D4Ba2e24#code)
 - ETH split: 0x787Bc4D2DA1CFCD5db700547B491E9Fd332e77C8
 - ropsten split: 0x787Bc4D2DA1CFCD5db700547B491E9Fd332e77C8
 - rinkeby contract: [0x9598BE1c138350d70322613C3d7899c8F0b2B432](https://rinkeby.etherscan.io/address/0x9598BE1c138350d70322613C3d7899c8F0b2B432#code)
