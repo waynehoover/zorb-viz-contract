@@ -22,8 +22,11 @@ contract ZorbViz is ERC721, Ownable, IERC2981 {
 
     string public baseURI;
 
-    constructor(address _zorbNFT, address payable _royaltyRecipient, string memory _baseUri) ERC721("Zorb Viz", "ZORBVIZ")
-    {
+    constructor(
+        address _zorbNFT,
+        address payable _royaltyRecipient,
+        string memory _baseUri
+    ) ERC721("Zorb Viz", "ZORBVIZ") {
         zorbNFT = _zorbNFT;
         royaltyRecipient = _royaltyRecipient;
         baseURI = _baseUri;
@@ -33,7 +36,10 @@ contract ZorbViz is ERC721, Ownable, IERC2981 {
         if (INFT(zorbNFT).balanceOf(msg.sender) > 0) {
             _mint(msg.sender, tokenId);
         } else {
-            require(PUBLIC_SALE_PRICE == msg.value, "Incorrect ETH value sent, must be .04 ether");
+            require(
+                PUBLIC_SALE_PRICE == msg.value,
+                "Incorrect ETH value sent, must be .04 ether"
+            );
             _mint(msg.sender, tokenId);
         }
     }
@@ -47,8 +53,7 @@ contract ZorbViz is ERC721, Ownable, IERC2981 {
     {
         require(_exists(tokenId), "Nonexistent token");
 
-        return
-            string(abi.encodePacked(baseURI, "/", tokenId.toString(), ".json"));
+        return string(abi.encodePacked(baseURI, "/", tokenId.toString()));
     }
 
     function setBaseURI(string memory _baseURI) external onlyOwner {
@@ -59,7 +64,10 @@ contract ZorbViz is ERC721, Ownable, IERC2981 {
     modifier tokenIdInRange(uint256 tokenID) {
         uint256 numberOfDays = 1609480800 + tokenID * 1 days;
 
-        require(tokenID > 0 && numberOfDays < block.timestamp, "Token ID is out of range");
+        require(
+            tokenID > 0 && numberOfDays < block.timestamp,
+            "Token ID is out of range"
+        );
         _;
     }
 
@@ -97,8 +105,7 @@ contract ZorbViz is ERC721, Ownable, IERC2981 {
             super.supportsInterface(interfaceId);
     }
 
-    fallback() external payable { }
+    fallback() external payable {}
 
-    receive() external payable { }
+    receive() external payable {}
 }
-
